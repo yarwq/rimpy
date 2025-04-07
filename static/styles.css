@@ -1,0 +1,72 @@
+@font-face {
+    font-family: 'geekFont'; /* Произвольное имя для вашего шрифта */
+    src: url('PixelatedEleganceRegular-ovyAA.ttf') format('truetype');
+    font-weight: normal; /* Нормальное начертание (обычный) */
+    font-style: normal;  /* Нормальный стиль (не курсив) */
+  }
+body {
+    font-family: 'geekFont', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: linear-gradient(180deg,
+            rgb(85, 136, 108) 0%,
+            rgb(104, 62, 62) 100%);
+    margin: 0;
+    height: 100vh;
+}
+
+.welcome {
+    margin-bottom: 20px;
+}
+
+/* Формы и кнопки */
+form {
+    font-family: 'geekFont', sans-serif;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.61);
+}
+
+.login-container input {
+    font-family: 'geekFont', sans-serif;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.login-container button {
+    font-family: 'geekFont', sans-serif;
+    padding: 10px;
+    width: 200px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.login-container button:hover {
+    background-color: #45a049;
+}
+
+/* Ссылки на регистрацию */
+.registration-link {
+    margin-top: 20px;
+}
+
+.registration-link a {
+    color: #8ec5ff;
+    text-decoration: none;
+}
+
+.registration-link a:hover {
+    text-decoration: underline;
+}
