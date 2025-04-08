@@ -1,8 +1,8 @@
 package com.rimp.rimpy;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Random;
 
 @Entity
@@ -13,7 +13,10 @@ public class User {
     private String login;
     private String password;
     private boolean verified =false;
-
+    @OneToMany
+    private List <Message> message;
+    @ManyToMany
+    private List<Chat> chat;
     public User(String name, String login, String password) {
         this.name = name;
         this.login = login;
@@ -54,5 +57,9 @@ public class User {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getPassword() {
+        return this.password;
     }
 }

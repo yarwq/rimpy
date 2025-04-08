@@ -8,7 +8,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
     public User save(User user) {
-        System.out.println("save user");
         return userRepository.save(user);
     }
 

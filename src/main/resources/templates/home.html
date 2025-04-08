@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>YOUR CHATS</title>
-    <link rel="stylesheet" th:href="/styles.css">
+    <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
-<h1>Hello, <span th:text="${#authentication.name}"> honey</span>!</h1>
+<h1>Hello,
+    <span th:text="${name}">Guest</span>!
+</h1>
+
 
 <h2>YOUR CHATS</h2>
 
@@ -15,12 +18,12 @@
 </div>
 
 <ul th:if="${!#lists.isEmpty(chats)}">
-    <li th:each="chat : ${chats}">
-        <a th:href="@{'/chats/' + ${chat.id}}">
-            <strong th:text="${chat.name}">Chat name</strong><br>
-            <small th:text="${chat.lastMessage}">last Message</small>
-        </a>
-    </li>
-</ul>
-</body>
-</html>
+    <!-- <li th:each="chat : ${chats}">
+            <a th:href="@{/chats/{id}(id=${chat.id})}">
+                <strong th:text="${chat.name}">Chat name</strong><br>
+                <small th:text="${chat.lastMessage}">last Message</small>
+            </a>
+        </li> -->
+    </ul>
+    </body>
+    </html>

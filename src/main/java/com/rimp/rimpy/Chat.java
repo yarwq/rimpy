@@ -1,8 +1,18 @@
 package com.rimp.rimpy;
 
-import java.util.List;
+import jakarta.persistence.*;
 
+import java.util.List;
+@Entity
 public class Chat {
-    private User []user;
-    List<Message> messageList;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @OneToMany
+    private List<Message> messageList;
+    @ManyToMany
+    private List<User> userList;
+    @ManyToOne
+    private User user;
+    private String name;
 }
