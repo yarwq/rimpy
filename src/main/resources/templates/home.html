@@ -1,14 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>YOUR CHATS</title>
+    <link rel="stylesheet" th:href="/styles.css">
 </head>
 <body>
-    <div class="welcome">
-        <h1>This is your home</h1>
-    </div>
+<h1>Hello, <span th:text="${#authentication.name}"> honey</span>!</h1>
+
+<h2>YOUR CHATS</h2>
+
+<div th:if="${#lists.isEmpty(chats)}">
+    <p>you dont have a chat! start texting to some1</p>
+</div>
+
+<ul th:if="${!#lists.isEmpty(chats)}">
+    <li th:each="chat : ${chats}">
+        <a th:href="@{'/chats/' + ${chat.id}}">
+            <strong th:text="${chat.name}">Chat name</strong><br>
+            <small th:text="${chat.lastMessage}">last Message</small>
+        </a>
+    </li>
+</ul>
 </body>
 </html>
