@@ -8,13 +8,18 @@
 
 <body>
 <h1>
-    <span th:text="${name}">Guest</span>!
+    <span th:text="${name}">Guest</span>
+
 </h1>
 <h1>
-    <span th:text="${bio}">Bio</span>!
+    <span th:text="${bio}">Bio</span>
 </h1>
-<h6><form th:action="home" method="post">
-    <button type="submit">Start Chat</button>
-</form></h6>
+<h6>
+    <form th:action="chat" method="post">
+        <input type="hidden" name="login" th:value="${login}" />
+        <button type="submit">Start Chat</button>
+    </form>
+</h6>
+
     </body>
     </html>

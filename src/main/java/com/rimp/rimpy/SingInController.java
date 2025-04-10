@@ -3,10 +3,7 @@ package com.rimp.rimpy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -18,20 +15,23 @@ public class SingInController {
     public String loginForm() {
         return "index"; // index.html — форма логина
     }
-    @PostMapping("/home")
-    public String login(@RequestParam String login) {
-    User FINDINGUSER =userRepository.findByLogin(login);
-    String loginUser = FINDINGUSER.getLogin();
-        System.out.println(loginUser);
-    if (FINDINGUSER != null) {
-        return "/user/{name}";
-    }
-    else {
-        return "home";
-    }
+    @PostMapping("/user")
+    public String user(@RequestParam String login, Principal principal, Model model) {
+        User FINDINGUSER =userRepository.findByLogin(login);
+        String nameUser = FINDINGUSER.getName();
+        System.out.println(nameUser);
+        model.addAttribute("name", nameUser);
+        model.addAttribute("login", login);
+        if (FINDINGUSER != null) {
+            return "user";
+           // return "/user/{name}";
+        }
+        else {
+            return "home";
+        }
     }
     @GetMapping("/user")
-    public String user(Principal principal, Model model) {
-
+    public String viewUser( Model model) {
+        return "user";
     }
     }

@@ -18,8 +18,8 @@
     }
 </style>
 <body>
-<form method="post" action="home">
-    <input name = "username" type="text" id="name" placeholder="find new user by login" required>
+<form method="post" th:action="user">
+    <input name = "login" type="text" id="name" placeholder="find user by login" required>
 </form>
 <h1>Hello,
     <span th:text="${name}">Guest</span>!
