@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 
-@RequestMapping("/home")
+@RequestMapping
 @Controller
 public class UserController {
     @Autowired
     private UserRepository userRepository;
-    @GetMapping
+    @GetMapping("/home")
     public String home(Model model, Principal principal) {
         String username = principal.getName();
         User user = userRepository.findByLogin(username);

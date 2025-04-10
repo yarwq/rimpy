@@ -5,7 +5,22 @@
     <title>YOUR CHATS</title>
     <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
+<style>
+    form {
+        position: absolute;
+        justify-content: center;
+        top: 5%;
+        font-family: 'geekFont', sans-serif;
+        display: flex;
+        width: 15%;
+        padding: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.61);
+    }
+</style>
 <body>
+<form method="post" action="home">
+    <input name = "username" type="text" id="name" placeholder="find new user by login" required>
+</form>
 <h1>Hello,
     <span th:text="${name}">Guest</span>!
 </h1>

@@ -16,21 +16,16 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return new MyUserDetailsService();
-    }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register", "/index", "/styles.css").permitAll()
+                        .requestMatchers("/register", "/index", "/styles.css", "/PixelatedEleganceRegular-ovyAA.ttf").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(form -> form
                         .loginPage("/index")
-                        .loginProcessingUrl("/login") // обязательно!
+                        .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/home", true)
                         .permitAll())
                 .logout(logout -> logout.permitAll());
