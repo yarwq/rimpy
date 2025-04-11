@@ -1,11 +1,14 @@
 package com.rimp.rimpy;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
+@Data
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "messageId")
     private Long messageId;
     private String message; //message
     @ManyToOne

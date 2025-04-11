@@ -15,6 +15,44 @@ public class ChatController {
     private UserRepository userRepository;
     @Autowired
     private ChatRepository chatRepository;
+    @Autowired
+    private MessageRepo messageRepo;
+
+//    @GetMapping("/chats/{id}")
+//    public String openChat(@PathVariable("id") Long chatId, Model model, Principal principal) {
+//        Chat chat = chatRepository.findById(chatId).orElse(null);
+//
+//        if (chat == null) {
+//            return "redirect:/home";
+//        }
+//
+//        //only for user chat (not for every1)
+//        String currentLogin = principal.getName();
+//        User currentUser = userRepository.findByLogin(currentLogin);
+//
+//        if (!chat.getUserList().contains(currentUser)) {
+//            return "redirect:/home"; // запрет доступа
+//        }
+//
+//        model.addAttribute("chat", chat);
+//        //        model.addAttribute("messages", chat.getMessage()); // если есть
+//        return "chat"; // создашь шаблон chat.html
+//    }
+
+
+    @GetMapping("/chats/{id}")
+    public String openChat(@PathVariable("id") Long chatId, Model model, Principal principal) {
+        System.out.println("Открытие чата с id: " + chatId);
+        Chat chat = chatRepository.findById(chatId).orElse(null);
+        if (chat == null) return "redirect:/home";
+
+        User currentUser = userRepository.findByLogin(principal.getName());
+        if (!chat.getUserList().contains(currentUser)) return "redirect:/home";
+
+        model.addAttribute("chat", chat);
+        model.addAttribute("messages", messageRepo.findByChat(chat));
+        return "chat";
+    }
 
     @GetMapping("/chat")
     public String viewUser( Model model, Principal principal) {

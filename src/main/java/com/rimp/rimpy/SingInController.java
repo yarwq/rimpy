@@ -13,7 +13,7 @@ public class SingInController {
     private UserRepository userRepository;
     @GetMapping("/index")
     public String loginForm() {
-        return "index"; // index.html — форма логина
+        return "index";
     }
     @PostMapping("/user")
     public String user(@RequestParam String login, Principal principal, Model model) {

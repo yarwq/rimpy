@@ -33,12 +33,11 @@
 </div>
 
 <ul th:if="${!#lists.isEmpty(chats)}">
-    <!-- <li th:each="chat : ${chats}">
+     <li th:each="chat : ${chats}">
             <a th:href="@{/chats/{id}(id=${chat.id})}">
                 <strong th:text="${chat.name}">Chat name</strong><br>
-                <small th:text="${chat.lastMessage}">last Message</small>
             </a>
-        </li> -->
+        </li>
     </ul>
     </body>
     </html>

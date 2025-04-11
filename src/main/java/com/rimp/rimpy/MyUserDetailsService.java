@@ -20,8 +20,8 @@ public class MyUserDetailsService implements UserDetailsService {
 
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getLogin())
-                .password(user.getPassword()) // это уже зашифрованный пароль
-                .roles("USER") // можно указать "USER", Spring требует хоть что-то
+                .password(user.getPassword())
+                .roles("USER")
                 .build();
     }
 }

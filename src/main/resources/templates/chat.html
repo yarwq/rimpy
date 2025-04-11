@@ -1,85 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-  margin: 0 auto;
-  max-width: 800px;
-  padding: 0 20px;
-}
-
-.container {
-  border: 2px solid #dedede;
-  background-color: #f1f1f1;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px 0;
-}
-
-.darker {
-  border-color: #ccc;
-  background-color: #ddd;
-}
-
-.container::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-.container img {
-  float: left;
-  max-width: 60px;
-  width: 100%;
-  margin-right: 20px;
-  border-radius: 50%;
-}
-
-.container img.right {
-  float: right;
-  margin-left: 20px;
-  margin-right:0;
-}
-
-.time-right {
-  float: right;
-  color: #aaa;
-}
-
-.time-left {
-  float: left;
-  color: #999;
-}
-</style>
+  <meta charset="UTF-8">
+  <title th:text="${chat.name}">Chat</title>
 </head>
 <body>
+<h1 th:text="${chat.name}">Chat Name</h1>
 
-<h2>Chat Messages</h2>
-
-<div class="container">
-  <img src="" alt="Avatar" style="width:100%;">
-  <p>text</p>
-  <span class="time-right">mb time</span>
+<div th:if="${#lists.isEmpty(messages)}">
+  <p>No messages yet</p>
 </div>
 
-<div class="container darker">
-  <img src="" alt="Avatar" class="right" style="width:100%;">
-  <p>text</p>
-  <span class="time-left">mb time</span>
-</div>
+<ul th:if="${!#lists.isEmpty(messages)}">
+  <li th:each="message : ${messages}">
+    <strong th:text="${message.user.name}">Username</strong>:
+   <span th:text="${message.message}">Message Text</span>
+  </li>
+</ul>
 
-<div class="container">
-  <img src="" alt="Avatar" style="width:100%;">
-  <p>text</p>
-  <span class="time-right">mb time</span>
-</div>
-
-<div class="container darker">
-  <img src="" alt="Avatar" class="right" style="width:100%;">
-  <p>text</p>
-  <span class="time-left">mb time</span>
-</div>
+<form th:action="@{/message}" method="post">
+  <input name="message" type="text" placeholder="Text me!" required>
+  <input type="hidden" name="chat.id" th:value="${chat.id}">
+  <input type="hidden" name="user.login" th:value="${#authentication.name}">
+  <button type="submit">Send</button>
+</form>
 
 </body>
 </html>
