@@ -18,9 +18,11 @@
     }
 </style>
 <body>
+<div class="login-container">
 <form method="post" th:action="user">
     <input name = "login" type="text" id="name" placeholder="find user by login" required>
 </form>
+    </div>
 <h1>Hello,
     <span th:text="${name}">Guest</span>!
 </h1>
@@ -39,5 +41,6 @@
             </a>
         </li>
     </ul>
+<h4></h4><a href="profile">about me</a></h4>
     </body>
     </html>

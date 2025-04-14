@@ -3,13 +3,14 @@ package com.rimp.rimpy;
 import jakarta.persistence.*;
 
 import java.util.List;
-import java.util.Random;
-
 @Entity
 public class User {
     private String name;
     private String bio;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(unique = true)
     private String login;
     private String password;
     private boolean verified =false;

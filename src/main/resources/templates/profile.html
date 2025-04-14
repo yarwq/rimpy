@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <style>
+        .field-block {
+            margin-bottom: 20px;
+        }
+        .edit-form {
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+
+
+    <div class="field-block">
+        <span><strong>Nickname:</strong></span>
+        <span th:text="${name}" id="nameDisplay">Nickname</span>
+        <button type="button" onclick="toggleForm('name')">Edit</button>
+
+        <form th:action="@{/profile/updateName}" method="post" class="edit-form" id="nameForm">
+            <input type="text" name="name" th:value="${name}" required>
+            <button type="submit">Save</button>
+        </form>
+    </div>
+
+    <!-- Bio -->
+    <div class="field-block">
+        <span><strong>Bio:</strong></span>
+        <span th:text="${bio}" id="bioDisplay">Bio</span>
+        <button type="button" onclick="toggleForm('bio')">Edit</button>
+
+        <form th:action="@{/profile/updateBio}" method="post" class="edit-form" id="bioForm">
+            <input type="text" name="bio" th:value="${bio}" required>
+            <button type="submit">Save</button>
+        </form>
+    </div>
+
+    <!-- Логин -->
+    <div class="field-block">
+        <span><strong>Login:</strong></span>
+        <span th:text="${login}" id="loginDisplay">Login</span>
+        <button type="button" onclick="toggleForm('login')">Edit</button>
+
+        <form th:action="@{/profile/updateLogin}" method="post" class="edit-form" id="loginForm">
+            <input type="text" name="login" th:value="${login}" required>
+            <button type="submit">Save</button>
+        </form>
+    </div>
+
+</div>
+
+<script>
+    function toggleForm(field) {
+        const form = document.getElementById(field + 'Form');
+        form.style.display = form.style.display === 'block' ? 'none' : 'block';
+    }
+</script>
+</body>
+</html>

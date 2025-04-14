@@ -90,6 +90,6 @@ public class ChatController {
         users.add(otherUser);
         chat.setUserList(users);
         chatRepository.save(chat);
-        return "chat";
+        return "redirect:/chats/" + chat.getId();
     }
 }
