@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface MessageRepo extends JpaRepository<Message, Long> {
     public List<Message> findByChat(Chat chat);
+    public List<Message> findByChatId(Long chatId);
+
 }

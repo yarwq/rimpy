@@ -5,6 +5,7 @@
   <title th:text="${chat.name}">Chat</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
+
 <body>
 <h1 th:text="${chat.name}">Chat Name</h1>
 
@@ -12,19 +13,70 @@
   <p>No messages yet</p>
 </div>
 
-<ul th:if="${!#lists.isEmpty(messages)}">
+<ul id="messageList">
   <li th:each="message : ${messages}">
     <strong th:text="${message.user.name}">Username</strong>:
-   <span th:text="${message.message}">Message Text</span>
+    <span th:text="${message.message}">Message Text</span>
   </li>
 </ul>
+
 <div class="login-container">
-<form th:action="@{/message}" method="post">
-  <input name="message" type="text" placeholder="Text me!" required>
-  <input type="hidden" name="chat.id" th:value="${chat.id}">
-  <input type="hidden" name="user.login" th:value="${#authentication.name}">
-  <button type="submit">Send</button>
-</form>
+  <form id="messageForm">
+    <input name="message" type="text" placeholder="Text me!" required>
+    <input type="hidden" id="chatId" name="chat.id" th:value="${chat.id}">
+    <button type="submit">Send</button>
+  </form>
+
 </div>
+
+<script>
+  const form = document.getElementById('messageForm');
+  const messageList = document.getElementById('messageList');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const formData = new FormData(form);
+
+    const response = await fetch('/message', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!response.ok) {
+      console.error('Ошибка при отправке запроса:', response.status);
+      return;
+    }
+
+    const message = await response.json();
+
+    if (message && message.user) {
+      const li = document.createElement('li');
+      li.innerHTML = `<strong>${message.user.name}</strong>: <span>${message.message}</span>`;
+      messageList.appendChild(li);
+      form.reset();
+    }
+  });
+  async function loadMessages() {
+    const chatId = document.getElementById('chatId').value;
+    const response = await fetch(`/messages?chatId=${chatId}`);
+    if (!response.ok) return;
+
+    const messages = await response.json();
+
+    // Очищаем и заново наполняем список
+    messageList.innerHTML = '';
+    messages.forEach(message => {
+      const li = document.createElement('li');
+      li.innerHTML = `<strong>${message.user.name}</strong>: <span>${message.message}</span>`;
+      messageList.appendChild(li);
+    });
+  }
+
+  // Обновление каждую секунду
+  setInterval(loadMessages, 1000);
+
+  // Загружаем сразу при открытии
+  window.onload = loadMessages;
+</script>
 </body>
 </html>

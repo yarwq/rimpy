@@ -7,13 +7,18 @@
 </head>
 
 <body>
+<div class="login-container">
 <h1>
-    <span th:text="${name}">Guest</span>
-
+    <img th:src="${avatar}" alt="Avatar" class="avatar-img" onerror="this.src='/default-avatar.png'" style="width: 20%; height: auto; border-radius: 10px;">
+    <span><strong>Nickname:</strong></span>
+    <span th:text="${name}" id="nameDisplay">Nickname</span>
+    <span><strong>Bio:</strong></span>
+    <span th:text="${bio}" id="bioDisplay">Bio</span>
+    <span><strong>Login:</strong></span>
+    <span th:text="${login}" id="loginDisplay">Login</span>
 </h1>
-<h1>
-    <span th:text="${bio}">Bio</span>
-</h1>
+</div>
+    <div class="login-container">
 <h6>
     <form th:action="chat" method="post">
         <input type="hidden" name="login" th:value="${login}" />

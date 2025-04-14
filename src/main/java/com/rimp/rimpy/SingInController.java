@@ -22,6 +22,10 @@ public class SingInController {
         System.out.println(nameUser);
         model.addAttribute("name", nameUser);
         model.addAttribute("login", login);
+        model.addAttribute("avatar", FINDINGUSER.getAvatar());
+        model.addAttribute("user", FINDINGUSER);
+        model.addAttribute("bio", FINDINGUSER.getBio());
+        model.addAttribute("login", FINDINGUSER.getLogin());
         if (FINDINGUSER != null) {
             return "user";
            // return "/user/{name}";

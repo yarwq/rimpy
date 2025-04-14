@@ -1,5 +1,6 @@
 package com.rimp.rimpy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -12,11 +13,14 @@ public class User {
     private Long id;
     @Column(unique = true)
     private String login;
+    private String avatar;
     private String password;
     private boolean verified =false;
-    @OneToMany
-    private List <Message> message;
-    @ManyToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Message> message;
+    @ManyToMany(mappedBy = "userList")
+    @JsonIgnore
     private List<Chat> chat;
     public User(String name, String login, String password) {
         this.name = name;
@@ -33,6 +37,12 @@ public class User {
 
     }
 
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+    public String getAvatar() {
+        return avatar;
+    }
     public String getName() {
         return this.name;
     }

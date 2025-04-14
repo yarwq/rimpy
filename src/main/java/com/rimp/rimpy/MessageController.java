@@ -3,11 +3,10 @@ package com.rimp.rimpy;
 import jakarta.persistence.Access;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 public class MessageController {
@@ -17,16 +16,22 @@ public class MessageController {
     UserRepository userRepository;
     @Autowired
     ChatRepository chatRepository;
-    @PostMapping("/message")
-    public String addMessage(@RequestParam("message") String text,
-                             @RequestParam("chat.id") Long chatId,
-                             Principal principal) {
 
+    @GetMapping("/messages")
+    @ResponseBody
+    public List<Message> getMessages(@RequestParam("chatId") Long chatId) {
+        return repo.findByChatId(chatId);
+    }
+    @PostMapping("/message")
+    @ResponseBody
+    public Message addMessage(@RequestParam("message") String text,
+                              @RequestParam("chat.id") Long chatId,
+                              Principal principal) {
         User user = userRepository.findByLogin(principal.getName());
         Chat chat = chatRepository.findById(chatId).orElse(null);
 
         if (user == null || chat == null) {
-            return "redirect:/home";
+            return null;
         }
 
         Message message = new Message();
@@ -34,9 +39,8 @@ public class MessageController {
         message.setUser(user);
         message.setChat(chat);
 
-        repo.save(message);
-
-        return "redirect:/chats/" + chatId;
+        return repo.save(message);
     }
+
 
 }
