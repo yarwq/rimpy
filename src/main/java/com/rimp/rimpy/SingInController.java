@@ -19,7 +19,6 @@ public class SingInController {
     public String user(@RequestParam String login, Principal principal, Model model) {
         User FINDINGUSER =userRepository.findByLogin(login);
         String nameUser = FINDINGUSER.getName();
-        System.out.println(nameUser);
         model.addAttribute("name", nameUser);
         model.addAttribute("login", login);
         model.addAttribute("avatar", FINDINGUSER.getAvatar());

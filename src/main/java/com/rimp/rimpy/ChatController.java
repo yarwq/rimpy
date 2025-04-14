@@ -18,28 +18,6 @@ public class ChatController {
     @Autowired
     private MessageRepo messageRepo;
 
-//    @GetMapping("/chats/{id}")
-//    public String openChat(@PathVariable("id") Long chatId, Model model, Principal principal) {
-//        Chat chat = chatRepository.findById(chatId).orElse(null);
-//
-//        if (chat == null) {
-//            return "redirect:/home";
-//        }
-//
-//        //only for user chat (not for every1)
-//        String currentLogin = principal.getName();
-//        User currentUser = userRepository.findByLogin(currentLogin);
-//
-//        if (!chat.getUserList().contains(currentUser)) {
-//            return "redirect:/home"; // запрет доступа
-//        }
-//
-//        model.addAttribute("chat", chat);
-//        //        model.addAttribute("messages", chat.getMessage()); // если есть
-//        return "chat"; // создашь шаблон chat.html
-//    }
-
-
     @GetMapping("/chats/{id}")
     public String openChat(@PathVariable("id") Long chatId, Model model, Principal principal) {
         System.out.println("Открытие чата с id: " + chatId);
@@ -54,23 +32,23 @@ public class ChatController {
         return "chat";
     }
 
-    @GetMapping("/chat")
-    public String viewUser( Model model, Principal principal) {
-        String login = (String) model.getAttribute("login");
-        User viewedUser = userRepository.findByLogin(login);
-        if (viewedUser == null) {
-            System.out.println("пользователь не найден");
-            return "redirect:/register";
-        }
-
-        String currentLogin = principal.getName();
-        User currentUser = userRepository.findByLogin(currentLogin);
-
-        model.addAttribute("name", viewedUser.getName());
-        model.addAttribute("bio", viewedUser.getBio());
-        model.addAttribute("login", viewedUser.getLogin());
-        return "user";
-    }
+//    @GetMapping("/chat")
+//    public String viewUser( Model model, Principal principal) {
+//        String login = (String) model.getAttribute("login");
+//        User viewedUser = userRepository.findByLogin(login);
+//        if (viewedUser == null) {
+//            System.out.println("пользователь не найден");
+//            return "redirect:/register";
+//        }
+//
+//        String currentLogin = principal.getName();
+//        User currentUser = userRepository.findByLogin(currentLogin);
+//
+//        model.addAttribute("name", viewedUser.getName());
+//        model.addAttribute("bio", viewedUser.getBio());
+//        model.addAttribute("login", viewedUser.getLogin());
+//        return "user";
+//    }
 
     @PostMapping("/chat")
     public String addChat(@RequestParam("login") String otherLogin, Principal principal) {
