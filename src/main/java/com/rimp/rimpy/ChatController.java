@@ -32,24 +32,6 @@ public class ChatController {
         return "chat";
     }
 
-//    @GetMapping("/chat")
-//    public String viewUser( Model model, Principal principal) {
-//        String login = (String) model.getAttribute("login");
-//        User viewedUser = userRepository.findByLogin(login);
-//        if (viewedUser == null) {
-//            System.out.println("пользователь не найден");
-//            return "redirect:/register";
-//        }
-//
-//        String currentLogin = principal.getName();
-//        User currentUser = userRepository.findByLogin(currentLogin);
-//
-//        model.addAttribute("name", viewedUser.getName());
-//        model.addAttribute("bio", viewedUser.getBio());
-//        model.addAttribute("login", viewedUser.getLogin());
-//        return "user";
-//    }
-
     @PostMapping("/chat")
     public String addChat(@RequestParam("login") String otherLogin, Principal principal) {
         String currentLogin = principal.getName();

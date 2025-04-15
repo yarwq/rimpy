@@ -17,16 +17,21 @@
   <li th:each="message : ${messages}">
     <strong th:text="${message.user.name}">Username</strong>:
     <span th:text="${message.message}">Message Text</span>
+
+    <div th:if="${message.imageUrl != null}">
+      <img th:src="@{${message.imageUrl}}" alt="image" style="max-width: 200px; max-height: 200px;"/>
+    </div>
   </li>
 </ul>
 
+
 <div class="login-container">
-  <form id="messageForm">
+  <form id="messageForm" enctype="multipart/form-data">
     <input name="message" type="text" placeholder="Text me!" required>
+    <input type="file" id="imageInput" name="image" accept="image/*">
     <input type="hidden" id="chatId" name="chat.id" th:value="${chat.id}">
     <button type="submit">Send</button>
   </form>
-
 </div>
 
 <script>
@@ -51,11 +56,25 @@
 
     if (message && message.user) {
       const li = document.createElement('li');
-      li.innerHTML = `<strong>${message.user.name}</strong>: <span>${message.message}</span>`;
+      li.innerHTML = `<strong>${message.user.name}</strong>: `;
+
+      if (message.message) {
+        li.innerHTML += `<span>${message.message}</span>`;
+      }
+
+      if (message.imageUrl) {
+        const img = document.createElement('img');
+        img.src = message.imageUrl;
+        img.style.maxWidth = '200px';
+        img.style.display = 'block';
+        li.appendChild(img);
+      }
+
       messageList.appendChild(li);
       form.reset();
     }
   });
+
   async function loadMessages() {
     const chatId = document.getElementById('chatId').value;
     const response = await fetch(`/messages?chatId=${chatId}`);
@@ -63,19 +82,32 @@
 
     const messages = await response.json();
 
-    // Очищаем и заново наполняем список
+
     messageList.innerHTML = '';
     messages.forEach(message => {
       const li = document.createElement('li');
-      li.innerHTML = `<strong>${message.user.name}</strong>: <span>${message.message}</span>`;
+      li.innerHTML = `<strong>${message.user.name}</strong>: `;
+
+      if (message.message) {
+        li.innerHTML += `<span>${message.message}</span>`;
+      }
+
+      if (message.imageUrl) {
+        const img = document.createElement('img');
+        img.src = message.imageUrl;
+        img.style.maxWidth = '200px';
+        img.style.display = 'block';
+        li.appendChild(img);
+      }
+
       messageList.appendChild(li);
     });
   }
 
-  // Обновление каждую секунду
+
   setInterval(loadMessages, 1000);
 
-  // Загружаем сразу при открытии
+
   window.onload = loadMessages;
 </script>
 </body>

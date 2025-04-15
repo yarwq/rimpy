@@ -13,7 +13,4 @@ public class ChatService {
     public Chat save(Chat chat) {
         return chatRepository.save(chat);
     }
-//    public List<Chat> getChatsForUser(String userId) {
-//        return chatRepository.findByUser(userId);
-//    }
 }

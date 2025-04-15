@@ -1,8 +1,8 @@
 @font-face {
-    font-family: 'geekFont'; /* Произвольное имя для вашего шрифта */
+    font-family: 'geekFont';
     src: url('PixelatedEleganceRegular-ovyAA.ttf') format('truetype');
-    font-weight: normal; /* Нормальное начертание (обычный) */
-    font-style: normal;  /* Нормальный стиль (не курсив) */
+    font-weight: normal;
+    font-style: normal;
   }
 body {
     font-family: 'geekFont', sans-serif;
@@ -57,7 +57,7 @@ form {
     background-color: #45a049;
 }
 
-/* Ссылки на регистрацию */
+
 .registration-link {
     margin-top: 20px;
 }
